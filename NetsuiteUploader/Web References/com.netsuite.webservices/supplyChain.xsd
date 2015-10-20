@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:listScm="urn:supplychain_2015_1.lists.webservices.netsuite.com" xmlns:platformCoreTyp="urn:types.core_2015_1.platform.webservices.netsuite.com" xmlns:platformCommon="urn:common_2015_1.platform.webservices.netsuite.com" xmlns:listScmTyp="urn:types.supplychain_2015_1.lists.webservices.netsuite.com" xmlns:platformCore="urn:core_2015_1.platform.webservices.netsuite.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:supplychain_2015_1.lists.webservices.netsuite.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="https://webservices.netsuite.com/xsd/platform/v2015_1_0/core.xsd" namespace="urn:core_2015_1.platform.webservices.netsuite.com" />
+  <xsd:import schemaLocation="https://webservices.netsuite.com/xsd/platform/v2015_1_0/common.xsd" namespace="urn:common_2015_1.platform.webservices.netsuite.com" />
+  <xsd:import schemaLocation="https://webservices.netsuite.com/xsd/lists/v2015_1_0/supplyChainTypes.xsd" namespace="urn:types.supplychain_2015_1.lists.webservices.netsuite.com" />
+  <xsd:element name="manufacturingCostTemplate" type="listScm:ManufacturingCostTemplate" />
+  <xsd:complexType name="ManufacturingCostTemplate">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="platformCore:Record">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="customForm" type="platformCore:RecordRef" />
+          <xsd:element minOccurs="0" name="subsidiary" type="platformCore:RecordRef" />
+          <xsd:element minOccurs="0" name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="memo" type="xsd:string" />
+          <xsd:element minOccurs="0" name="isInactive" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="costDetailList" type="listScm:ManufacturingCostDetailList" />
+          <xsd:element minOccurs="0" name="customFieldList" type="platformCore:CustomFieldList" />
+        </xsd:sequence>
+        <xsd:attribute name="internalId" type="xsd:string" />
+        <xsd:attribute name="externalId" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingCostDetail">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="costCategory" type="platformCore:RecordRef" />
+      <xsd:element minOccurs="0" name="item" type="platformCore:RecordRef" />
+      <xsd:element minOccurs="0" name="fixedRate" type="xsd:double" />
+      <xsd:element minOccurs="0" name="runRate" type="xsd:double" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingCostDetailList">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="manufacturingCostDetail" type="listScm:ManufacturingCostDetail" />
+    </xsd:sequence>
+    <xsd:attribute default="true" name="replaceAll" type="xsd:boolean" />
+  </xsd:complexType>
+  <xsd:element name="manufacturingCostTemplateSearch" type="listScm:ManufacturingCostTemplateSearch" />
+  <xsd:complexType name="ManufacturingCostTemplateSearch">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="platformCore:SearchRecord">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="basic" type="platformCommon:ManufacturingCostTemplateSearchBasic" />
+          <xsd:element minOccurs="0" name="itemJoin" type="platformCommon:ItemSearchBasic" />
+          <xsd:element minOccurs="0" name="userJoin" type="platformCommon:EmployeeSearchBasic" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="customSearchJoin" type="platformCommon:CustomSearchJoin" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingCostTemplateSearchAdvanced">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="platformCore:SearchRecord">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="criteria" type="listScm:ManufacturingCostTemplateSearch" />
+          <xsd:element minOccurs="0" name="columns" type="listScm:ManufacturingCostTemplateSearchRow" />
+        </xsd:sequence>
+        <xsd:attribute name="savedSearchId" type="xsd:string" />
+        <xsd:attribute name="savedSearchScriptId" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingCostTemplateSearchRow">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="platformCore:SearchRow">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="basic" type="platformCommon:ManufacturingCostTemplateSearchRowBasic" />
+          <xsd:element minOccurs="0" name="itemJoin" type="platformCommon:ItemSearchRowBasic" />
+          <xsd:element minOccurs="0" name="userJoin" type="platformCommon:EmployeeSearchRowBasic" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="customSearchJoin" type="platformCommon:CustomSearchRowBasic" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="manufacturingRouting" type="listScm:ManufacturingRouting" />
+  <xsd:complexType name="ManufacturingRouting">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="platformCore:Record">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="customForm" type="platformCore:RecordRef" />
+          <xsd:element minOccurs="0" name="subsidiary" type="platformCore:RecordRef" />
+          <xsd:element minOccurs="0" name="item" type="platformCore:RecordRef" />
+          <xsd:element minOccurs="0" name="locationList" type="platformCore:RecordRefList" />
+          <xsd:element minOccurs="0" name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="memo" type="xsd:string" />
+          <xsd:element minOccurs="0" name="isDefault" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="isInactive" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="autoCalculateLag" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="routingStepList" type="listScm:ManufacturingRoutingRoutingStepList" />
+          <xsd:element minOccurs="0" name="routingComponentList" type="listScm:ManufacturingRoutingRoutingComponentList" />
+          <xsd:element minOccurs="0" name="customFieldList" type="platformCore:CustomFieldList" />
+        </xsd:sequence>
+        <xsd:attribute name="internalId" type="xsd:string" />
+        <xsd:attribute name="externalId" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingRoutingRoutingStep">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="operationSequence" type="xsd:long" />
+      <xsd:element minOccurs="0" name="operationName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="manufacturingWorkCenter" type="platformCore:RecordRef" />
+      <xsd:element minOccurs="0" name="machineResources" type="xsd:long" />
+      <xsd:element minOccurs="0" name="laborResources" type="xsd:long" />
+      <xsd:element minOccurs="0" name="manufacturingCostTemplate" type="platformCore:RecordRef" />
+      <xsd:element minOccurs="0" name="setupTime" type="xsd:double" />
+      <xsd:element minOccurs="0" name="runRate" type="xsd:double" />
+      <xsd:element minOccurs="0" name="lagType" type="listScmTyp:ManufacturingLagType" />
+      <xsd:element minOccurs="0" name="lagAmount" type="xsd:long" />
+      <xsd:element minOccurs="0" name="lagUnits" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingRoutingRoutingStepList">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="manufacturingRoutingRoutingStep" type="listScm:ManufacturingRoutingRoutingStep" />
+    </xsd:sequence>
+    <xsd:attribute default="true" name="replaceAll" type="xsd:boolean" />
+  </xsd:complexType>
+  <xsd:element name="manufacturingRoutingSearch" type="listScm:ManufacturingRoutingSearch" />
+  <xsd:complexType name="ManufacturingRoutingSearch">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="platformCore:SearchRecord">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="basic" type="platformCommon:ManufacturingRoutingSearchBasic" />
+          <xsd:element minOccurs="0" name="itemJoin" type="platformCommon:ItemSearchBasic" />
+          <xsd:element minOccurs="0" name="locationJoin" type="platformCommon:LocationSearchBasic" />
+          <xsd:element minOccurs="0" name="manufacturingCostTemplateJoin" type="platformCommon:ManufacturingCostTemplateSearchBasic" />
+          <xsd:element minOccurs="0" name="manufacturingWorkCenterJoin" type="platformCommon:EntityGroupSearchBasic" />
+          <xsd:element minOccurs="0" name="userJoin" type="platformCommon:EmployeeSearchBasic" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="customSearchJoin" type="platformCommon:CustomSearchJoin" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingRoutingSearchAdvanced">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="platformCore:SearchRecord">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="criteria" type="listScm:ManufacturingRoutingSearch" />
+          <xsd:element minOccurs="0" name="columns" type="listScm:ManufacturingRoutingSearchRow" />
+        </xsd:sequence>
+        <xsd:attribute name="savedSearchId" type="xsd:string" />
+        <xsd:attribute name="savedSearchScriptId" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingRoutingSearchRow">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="platformCore:SearchRow">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="basic" type="platformCommon:ManufacturingRoutingSearchRowBasic" />
+          <xsd:element minOccurs="0" name="itemJoin" type="platformCommon:ItemSearchRowBasic" />
+          <xsd:element minOccurs="0" name="locationJoin" type="platformCommon:LocationSearchRowBasic" />
+          <xsd:element minOccurs="0" name="manufacturingCostTemplateJoin" type="platformCommon:ManufacturingCostTemplateSearchRowBasic" />
+          <xsd:element minOccurs="0" name="manufacturingWorkCenterJoin" type="platformCommon:EntityGroupSearchRowBasic" />
+          <xsd:element minOccurs="0" name="userJoin" type="platformCommon:EmployeeSearchRowBasic" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="customSearchJoin" type="platformCommon:CustomSearchRowBasic" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="manufacturingOperationTask" type="listScm:ManufacturingOperationTask" />
+  <xsd:complexType name="ManufacturingOperationTask">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="platformCore:Record">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="customForm" type="platformCore:RecordRef" />
+          <xsd:element minOccurs="0" name="manufacturingWorkCenter" type="platformCore:RecordRef" />
+          <xsd:element minOccurs="0" name="manufacturingCostTemplate" type="platformCore:RecordRef" />
+          <xsd:element minOccurs="0" name="title" type="xsd:string" />
+          <xsd:element minOccurs="0" name="operationSequence" type="xsd:long" />
+          <xsd:element minOccurs="0" name="workOrder" type="platformCore:RecordRef" />
+          <xsd:element minOccurs="0" name="order" type="platformCore:RecordRef" />
+          <xsd:element minOccurs="0" name="status" type="listScmTyp:ManufacturingOperationTaskStatus" />
+          <xsd:element minOccurs="0" name="message" type="xsd:string" />
+          <xsd:element minOccurs="0" name="estimatedWork" type="xsd:double" />
+          <xsd:element minOccurs="0" name="actualWork" type="xsd:double" />
+          <xsd:element minOccurs="0" name="remainingWork" type="xsd:double" />
+          <xsd:element minOccurs="0" name="inputQuantity" type="xsd:double" />
+          <xsd:element minOccurs="0" name="completedQuantity" type="xsd:double" />
+          <xsd:element minOccurs="0" name="setupTime" type="xsd:double" />
+          <xsd:element minOccurs="0" name="runRate" type="xsd:double" />
+          <xsd:element minOccurs="0" name="startDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="endDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="autoCalculateLag" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="machineResources" type="xsd:long" />
+          <xsd:element minOccurs="0" name="laborResources" type="xsd:long" />
+          <xsd:element minOccurs="0" name="costDetailList" type="listScm:ManufacturingCostDetailList" />
+          <xsd:element minOccurs="0" name="predecessorList" type="listScm:ManufacturingOperationTaskPredecessorList" />
+          <xsd:element minOccurs="0" name="customFieldList" type="platformCore:CustomFieldList" />
+        </xsd:sequence>
+        <xsd:attribute name="internalId" type="xsd:string" />
+        <xsd:attribute name="externalId" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="manufacturingOperationTaskSearch" type="listScm:ManufacturingOperationTaskSearch" />
+  <xsd:complexType name="ManufacturingOperationTaskSearch">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="platformCore:SearchRecord">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="basic" type="platformCommon:ManufacturingOperationTaskSearchBasic" />
+          <xsd:element minOccurs="0" name="predecessorJoin" type="platformCommon:ManufacturingOperationTaskSearchBasic" />
+          <xsd:element minOccurs="0" name="userJoin" type="platformCommon:EmployeeSearchBasic" />
+          <xsd:element minOccurs="0" name="workOrderJoin" type="platformCommon:TransactionSearchBasic" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="customSearchJoin" type="platformCommon:CustomSearchJoin" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingOperationTaskSearchAdvanced">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="platformCore:SearchRecord">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="criteria" type="listScm:ManufacturingOperationTaskSearch" />
+          <xsd:element minOccurs="0" name="columns" type="listScm:ManufacturingOperationTaskSearchRow" />
+        </xsd:sequence>
+        <xsd:attribute name="savedSearchId" type="xsd:string" />
+        <xsd:attribute name="savedSearchScriptId" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingOperationTaskSearchRow">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="platformCore:SearchRow">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="basic" type="platformCommon:ManufacturingOperationTaskSearchRowBasic" />
+          <xsd:element minOccurs="0" name="predecessorJoin" type="platformCommon:ManufacturingOperationTaskSearchRowBasic" />
+          <xsd:element minOccurs="0" name="userJoin" type="platformCommon:EmployeeSearchRowBasic" />
+          <xsd:element minOccurs="0" name="workOrderJoin" type="platformCommon:TransactionSearchRowBasic" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="customSearchJoin" type="platformCommon:CustomSearchRowBasic" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingOperationTaskPredecessor">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="task" type="platformCore:RecordRef" />
+      <xsd:element minOccurs="0" name="type" type="listScmTyp:ManufacturingOperationTaskPredecessorPredecessorType" />
+      <xsd:element minOccurs="0" name="startDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="endDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="lagType" type="listScmTyp:ManufacturingLagType" />
+      <xsd:element minOccurs="0" name="lagAmount" type="xsd:long" />
+      <xsd:element minOccurs="0" name="lagUnits" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingOperationTaskPredecessorList">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="manufacturingOperationTaskPredecessor" type="listScm:ManufacturingOperationTaskPredecessor" />
+    </xsd:sequence>
+    <xsd:attribute default="true" name="replaceAll" type="xsd:boolean" />
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingRoutingRoutingComponent">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="itemName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="yield" type="xsd:double" />
+      <xsd:element minOccurs="0" name="bomQuantity" type="xsd:double" />
+      <xsd:element minOccurs="0" name="quantity" type="xsd:double" />
+      <xsd:element minOccurs="0" name="units" type="xsd:string" />
+      <xsd:element minOccurs="0" name="operationDisplayText" type="platformCore:RecordRef" />
+      <xsd:element minOccurs="0" name="operationSequenceNumber" type="xsd:long" />
+      <xsd:element minOccurs="0" name="component" type="xsd:string" />
+      <xsd:element minOccurs="0" name="item" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ManufacturingRoutingRoutingComponentList">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="manufacturingRoutingRoutingComponent" type="listScm:ManufacturingRoutingRoutingComponent" />
+    </xsd:sequence>
+    <xsd:attribute default="true" name="replaceAll" type="xsd:boolean" />
+  </xsd:complexType>
+</xsd:schema>

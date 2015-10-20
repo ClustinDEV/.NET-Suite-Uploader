@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:listRelTyp="urn:types.relationships_2015_1.lists.webservices.netsuite.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:types.relationships_2015_1.lists.webservices.netsuite.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:simpleType name="EntityType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_company" />
+      <xsd:enumeration value="_contact" />
+      <xsd:enumeration value="_customer" />
+      <xsd:enumeration value="_employee" />
+      <xsd:enumeration value="_genericResource" />
+      <xsd:enumeration value="_group" />
+      <xsd:enumeration value="_internal" />
+      <xsd:enumeration value="_job" />
+      <xsd:enumeration value="_otherName" />
+      <xsd:enumeration value="_partner" />
+      <xsd:enumeration value="_vendor" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CustomerStatusStage">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_customer" />
+      <xsd:enumeration value="_lead" />
+      <xsd:enumeration value="_prospect" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ContactType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_customer" />
+      <xsd:enumeration value="_employee" />
+      <xsd:enumeration value="_otherName" />
+      <xsd:enumeration value="_partner" />
+      <xsd:enumeration value="_vendor" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CustomerStage">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_customer" />
+      <xsd:enumeration value="_lead" />
+      <xsd:enumeration value="_prospect" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CustomerCreditHoldOverride">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_auto" />
+      <xsd:enumeration value="_on" />
+      <xsd:enumeration value="_off" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CustomerMonthlyClosing">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_one" />
+      <xsd:enumeration value="_five" />
+      <xsd:enumeration value="_ten" />
+      <xsd:enumeration value="_fifteen" />
+      <xsd:enumeration value="_twenty" />
+      <xsd:enumeration value="_twentyFive" />
+      <xsd:enumeration value="_endOfTheMonth" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="EmailPreference">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_default" />
+      <xsd:enumeration value="_hTML" />
+      <xsd:enumeration value="_pDF" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="EntityGroupType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_contact" />
+      <xsd:enumeration value="_customer" />
+      <xsd:enumeration value="_employee" />
+      <xsd:enumeration value="_partner" />
+      <xsd:enumeration value="_vendor" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TaxFractionUnit">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_001andBelow" />
+      <xsd:enumeration value="_01andBelow" />
+      <xsd:enumeration value="_100andBelow" />
+      <xsd:enumeration value="_10andBelow" />
+      <xsd:enumeration value="_1andBelow" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TaxRounding">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_roundDown" />
+      <xsd:enumeration value="_roundOff" />
+      <xsd:enumeration value="_roundUp" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="JobBillingType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_none" />
+      <xsd:enumeration value="_chargeBased" />
+      <xsd:enumeration value="_fixedBidInterval" />
+      <xsd:enumeration value="_fixedBidMilestone" />
+      <xsd:enumeration value="_timeAndMaterials" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PartnerOtherRelationships">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_customer" />
+      <xsd:enumeration value="_otherName" />
+      <xsd:enumeration value="_vendor" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CustomerOtherRelationships">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_otherName" />
+      <xsd:enumeration value="_partner" />
+      <xsd:enumeration value="_vendor" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="VendorOtherRelationships">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_customer" />
+      <xsd:enumeration value="_otherName" />
+      <xsd:enumeration value="_partner" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CustomerNegativeNumberFormat">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_bracketSurrounded" />
+      <xsd:enumeration value="_minusSigned" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CustomerNumberFormat">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="_spaceAsDigitGroupSeparatorAndDecimalComma" />
+      <xsd:enumeration value="_spaceAsDigitGroupSeparatorAndDecimalPoint" />
+      <xsd:enumeration value="_commaAsDigitGroupSeparatorAndDecimalPoint" />
+      <xsd:enumeration value="_pointAsDigitGroupSeparatorAndDecimalComma" />
+      <xsd:enumeration value="_apostropheAsDigitGroupSeparatorAndDecimalComma" />
+      <xsd:enumeration value="_apostropheAsDigitGroupSeparatorAndDecimalPoint" />
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

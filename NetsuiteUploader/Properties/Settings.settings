@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="NetsuiteUploader.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="NetsuiteUploader_com_netsuite_webservices_NetSuiteService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://webservices.netsuite.com/services/NetSuitePort_2015_1</Value>
+    </Setting>
+    <Setting Name="NetsuiteUploader_com_netsuite_na1_webservices_NetSuiteService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://webservices.na1.netsuite.com/services/NetSuitePort_2014_2</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
