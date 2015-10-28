@@ -16,4 +16,8 @@ The app now work only on a single domain at time: system or system.na1
 
 Next features:
 - Change account dynamically
-- Select the domain based on the requested account
+- Select the domain based on the requested account (list in config)
+- Use folder in task
+- Shortcut to Upload execution
+- Enhanced log with execution status (icon, color, ...)
+- Custom clustin icon
