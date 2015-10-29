@@ -23,7 +23,7 @@ namespace NetsuiteUploader.Utils
             lblNotification.Text = wr.status.isSuccess.ToString();
             */
 
-            string filePath = ConfigurationSettings.AppSettings["taskfolder"].ToString() + taskName;
+            string filePath = ConfigurationManager.AppSettings["taskfolder"].ToString().TrimEnd('\\') + @"\" + taskName;
 
             string taskContent = System.IO.File.ReadAllText(filePath);
 

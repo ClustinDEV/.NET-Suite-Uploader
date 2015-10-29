@@ -11,14 +11,23 @@ namespace NetsuiteUploader.Utils
 {
     public class Login
     {
-        public string Account = ConfigurationSettings.AppSettings["account"];
-        public string Email = ConfigurationSettings.AppSettings["email"];
-        public string Password = ConfigurationSettings.AppSettings["password"];
+        public string Account = null;
+        public string Email = ConfigurationManager.AppSettings["email"];
+        public string Password = ConfigurationManager.AppSettings["password"];
 
         public SessionResponse login(NetSuiteService netSuiteService)
         {
+            return login(netSuiteService, null);
+        }
+
+        public SessionResponse login(NetSuiteService netSuiteService, string account)
+        {
             try
             {
+                this.Account = account;
+                if (this.Account == null)
+                    this.Account = ConfigurationManager.AppSettings["account"].Split(',')[0];
+
                 Passport passport = new Passport();
                 passport.account = this.Account;
                 passport.email = this.Email;
@@ -28,7 +37,7 @@ namespace NetsuiteUploader.Utils
                 //passport.role = role;
 
                 netSuiteService.CookieContainer = new CookieContainer();
-                //netSuiteService.Url = "https://webservices.na1.netsuite.com";
+                //netSuiteService.Url = "https://webservices.netsuite.com/";
                 SessionResponse sessionResponse = netSuiteService.login(passport);
                 return sessionResponse;
             }
@@ -36,6 +45,12 @@ namespace NetsuiteUploader.Utils
             {
                 return null;
             }
+        }
+
+        public void logout(NetSuiteService netSuiteService, SessionResponse sessionResponse)
+        {
+            if (sessionResponse != null && sessionResponse.status.isSuccess)
+                netSuiteService.logout();
         }
     }
 }
