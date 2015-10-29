@@ -39,13 +39,16 @@
             this.lblToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tlsUploader = new System.Windows.Forms.ToolStrip();
             this.ddbAccount = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ddbTasks = new System.Windows.Forms.ToolStripDropDownButton();
             this.mniTasksOpenFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.mniTasksOpenFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.pnlStatus = new System.Windows.Forms.Panel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.picDone = new System.Windows.Forms.PictureBox();
+            this.picError = new System.Windows.Forms.PictureBox();
             this.statusStripUploader.SuspendLayout();
             this.tlsUploader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDone)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picError)).BeginInit();
             this.SuspendLayout();
             // 
             // tmrTimeout
@@ -138,6 +141,11 @@
             this.ddbAccount.ToolTipText = "Change Account";
             this.ddbAccount.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ddbAccount_DropDownItemClicked);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
             // ddbTasks
             // 
             this.ddbTasks.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -164,17 +172,25 @@
             this.mniTasksOpenFile.Text = "Open Task File";
             this.mniTasksOpenFile.Click += new System.EventHandler(this.mniTasksOpenFile_Click);
             // 
-            // pnlStatus
+            // picDone
             // 
-            this.pnlStatus.Location = new System.Drawing.Point(278, 176);
-            this.pnlStatus.Name = "pnlStatus";
-            this.pnlStatus.Size = new System.Drawing.Size(54, 54);
-            this.pnlStatus.TabIndex = 7;
+            this.picDone.Location = new System.Drawing.Point(274, 175);
+            this.picDone.Margin = new System.Windows.Forms.Padding(0);
+            this.picDone.Name = "picDone";
+            this.picDone.Size = new System.Drawing.Size(54, 54);
+            this.picDone.TabIndex = 8;
+            this.picDone.TabStop = false;
+            this.picDone.Visible = false;
             // 
-            // toolStripSeparator1
+            // picError
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.picError.Location = new System.Drawing.Point(274, 176);
+            this.picError.Margin = new System.Windows.Forms.Padding(0);
+            this.picError.Name = "picError";
+            this.picError.Size = new System.Drawing.Size(54, 54);
+            this.picError.TabIndex = 9;
+            this.picError.TabStop = false;
+            this.picError.Visible = false;
             // 
             // frmUploader
             // 
@@ -183,7 +199,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(712, 414);
-            this.Controls.Add(this.pnlStatus);
+            this.Controls.Add(this.picError);
+            this.Controls.Add(this.picDone);
             this.Controls.Add(this.tlsUploader);
             this.Controls.Add(this.statusStripUploader);
             this.Controls.Add(this.chkWatchChanges);
@@ -204,6 +221,8 @@
             this.statusStripUploader.PerformLayout();
             this.tlsUploader.ResumeLayout(false);
             this.tlsUploader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDone)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picError)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,8 +242,9 @@
         private System.Windows.Forms.ToolStripDropDownButton ddbTasks;
         private System.Windows.Forms.ToolStripMenuItem mniTasksOpenFolder;
         private System.Windows.Forms.ToolStripMenuItem mniTasksOpenFile;
-        private System.Windows.Forms.Panel pnlStatus;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.PictureBox picDone;
+        private System.Windows.Forms.PictureBox picError;
     }
 }
 

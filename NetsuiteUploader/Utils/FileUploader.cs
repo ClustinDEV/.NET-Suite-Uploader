@@ -27,30 +27,50 @@ namespace NetsuiteUploader.Utils
 
             string taskContent = System.IO.File.ReadAllText(filePath);
 
-            TaskFile[] files = JsonConvert.DeserializeObject<TaskFile[]>(taskContent);
-            
-            Record[] records = new Record[files.Length];
+            List<TaskFile> taskFiles = JsonConvert.DeserializeObject<TaskFile[]>(taskContent).ToList();
+            List<TaskFile> taskFilesFolders = new List<TaskFile>();
+            List<Record> records = new List<Record>(taskFiles.Count);
 
-            for (int i = 0; i < files.Length; i++)
+            for (int i = 0; i < taskFiles.Count; i++)
             {
-                string path = files[i].Path;
-                if (!System.IO.File.Exists(path))
-                    throw new Exception("Error in Task: file does not exist [" + path + "]");
-                
-                string folderInternalId = files[i].Folderid;
-                NetsuiteUploader.com.netsuite.na1.webservices.File record = new NetsuiteUploader.com.netsuite.na1.webservices.File();
-                record.name = System.IO.Path.GetFileName(path);
-                record.content = System.IO.File.ReadAllBytes(path);
-                RecordRef recRef = new RecordRef();
-                recRef.internalId = folderInternalId;
-                record.folder = recRef;
-
-                records[i] = record;
+                if(System.IO.Directory.Exists(taskFiles[i].Path))
+                { ///loop for all files in folder
+                    string[] files = System.IO.Directory.GetFiles(taskFiles[i].Path);
+                    for (int k = 0; k < files.Length; k++)
+                    {
+                        TaskFile taskFile = new TaskFile() { Path = files[k], Folderid = taskFiles[i].Folderid };
+                        taskFilesFolders.Add(taskFile);
+                        records.Add(createRecord(taskFile));
+                    }
+                }
+                else
+                { ///single file
+                    records.Add(createRecord(taskFiles[i]));
+                }
             }
 
-            netSuiteService.addListAsync(records);
+            netSuiteService.addListAsync(records.ToArray());
 
-            return files;
+            taskFiles.AddRange(taskFilesFolders);
+
+            return taskFiles.ToArray();
+        }
+
+        private Record createRecord(TaskFile taskFile)
+        {
+            string path = taskFile.Path;
+            if (!System.IO.File.Exists(path))
+                throw new Exception("Error in Task: file does not exist [" + path + "]");
+
+            string folderInternalId = taskFile.Folderid;
+            NetsuiteUploader.com.netsuite.na1.webservices.File record = new NetsuiteUploader.com.netsuite.na1.webservices.File();
+            record.name = System.IO.Path.GetFileName(path);
+            record.content = System.IO.File.ReadAllBytes(path);
+            RecordRef recRef = new RecordRef();
+            recRef.internalId = folderInternalId;
+            record.folder = recRef;
+
+            return record;
         }
 
     }

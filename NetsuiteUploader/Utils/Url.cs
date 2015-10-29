@@ -75,13 +75,13 @@ namespace NetsuiteUploader.Utils
                             {
                                 string accountIntId = elementFromLinq.Element("account").Element("internalId").Value;
                                 string accountName = elementFromLinq.Element("account").Element("name").Value;
-                                Console.WriteLine("Data Center URLs for " + accountIntId + " " + accountName);
-                                Console.WriteLine("-----------------------");
-                                Console.WriteLine("Role: " + elementFromLinq.Element("role").Element("name").Value);
-                                Console.WriteLine("Rest Domain: " + elementFromLinq.Element("dataCenterURLs").Element("restDomain").Value);
-                                Console.WriteLine("System Domain: " + elementFromLinq.Element("dataCenterURLs").Element("systemDomain").Value);
-                                Console.WriteLine("Web Services Domain: " + elementFromLinq.Element("dataCenterURLs").Element("webservicesDomain").Value);
-                                Console.WriteLine(" ");
+                                //Console.WriteLine("Data Center URLs for " + accountIntId + " " + accountName);
+                                //Console.WriteLine("-----------------------");
+                                //Console.WriteLine("Role: " + elementFromLinq.Element("role").Element("name").Value);
+                                //Console.WriteLine("Rest Domain: " + elementFromLinq.Element("dataCenterURLs").Element("restDomain").Value);
+                                //Console.WriteLine("System Domain: " + elementFromLinq.Element("dataCenterURLs").Element("systemDomain").Value);
+                                //Console.WriteLine("Web Services Domain: " + elementFromLinq.Element("dataCenterURLs").Element("webservicesDomain").Value);
+                                //Console.WriteLine(" ");
                                 urls.First = elementFromLinq.Element("dataCenterURLs").Element("webservicesDomain").Value;   //webservicesDomain
                                 urls.Second = elementFromLinq.Element("dataCenterURLs").Element("systemDomain").Value;  //systemDomain
                                 urls.Third = elementFromLinq.Element("dataCenterURLs").Element("restDomain").Value;  //restDomain
@@ -89,17 +89,16 @@ namespace NetsuiteUploader.Utils
                             }
                         }
 
-                        Console.Write("Number of Roles for this Account: " + restDomains.Count());
-                        if (restDomains != null)
-                        {
-                            Console.WriteLine("Roles");
-                            Console.WriteLine("-----------------------");
-                            foreach (XElement elementFromLinq in restDomains)
-                            {
-                                Console.WriteLine(elementFromLinq.Element("role").Element("name").Value);
-                            }
-
-                        }
+                        //Console.Write("Number of Roles for this Account: " + restDomains.Count());
+                        //if (restDomains != null)
+                        //{
+                        //    Console.WriteLine("Roles");
+                        //    Console.WriteLine("-----------------------");
+                        //    foreach (XElement elementFromLinq in restDomains)
+                        //    {
+                        //        Console.WriteLine(elementFromLinq.Element("role").Element("name").Value);
+                        //    }
+                        //}
                     }
                 }
                 return urls;

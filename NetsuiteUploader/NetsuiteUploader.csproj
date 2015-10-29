@@ -72,6 +72,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Reflection.Context" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -132,6 +133,11 @@
     <Content Include="netsuite.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Resources\done.png" />
+    <EmbeddedResource Include="Resources\error.png" />
+    <EmbeddedResource Include="Resources\account.png" />
+    <EmbeddedResource Include="Resources\file.png" />
+    <EmbeddedResource Include="Resources\folder.png" />
     <Content Include="Tasks\sample.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

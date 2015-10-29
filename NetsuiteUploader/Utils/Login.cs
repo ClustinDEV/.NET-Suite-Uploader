@@ -37,12 +37,14 @@ namespace NetsuiteUploader.Utils
                 //passport.role = role;
 
                 netSuiteService.CookieContainer = new CookieContainer();
-                //netSuiteService.Url = "https://webservices.netsuite.com/";
+                //netSuiteService.Url = "https://webservices.na1.netsuite.com/services/NetSuitePort_2014_2";
+
                 SessionResponse sessionResponse = netSuiteService.login(passport);
                 return sessionResponse;
             }
             catch (Exception ex)
             {
+                ex.ToString();
                 return null;
             }
         }

@@ -1,4 +1,4 @@
 [
-    { "path": "C:/Temp/a.txt", "folderid": "8700" },
-    { "path": "C:/Temp/b.txt", "folderid": "8700" }
+    { "path": "C:/Temp/temp1/a.txt", "folderid": "8700" },
+    { "path": "C:/Temp/temp2", "folderid": "8700" }
 ]

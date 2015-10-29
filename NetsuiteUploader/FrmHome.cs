@@ -15,15 +15,19 @@ using System.IO;
 using System.Configuration;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace NetsuiteUploader
 {
     public partial class frmUploader : Form
     {
+        private Assembly NetsuiteUploaderAssembly = Assembly.GetExecutingAssembly();
         private NetSuiteService netSuiteService = new NetSuiteService();
         private SessionResponse sessionResponse;
         private string currentTask;
-        private List<FileSystemWatcher> listFileSystemWatcher = null; 
+        private List<FileSystemWatcher> listFileSystemWatcher = null;
+        private const string NOTIFICATION_SUCCESS = "1";
+        private const string NOTIFICATION_ERROR = "2";
 
         public frmUploader()
         {
@@ -34,13 +38,15 @@ namespace NetsuiteUploader
         {
             loadAccounts();
             executeLogin(null);
+
+            loadResources();
         }
 
         private void netSuiteService_addListCompleted(object sender, addListCompletedEventArgs e)
         {
             Invoke(new Action(() =>
             {
-                appendLog("Upload done!", Color.Green);
+                appendLog("Upload done!", NOTIFICATION_SUCCESS);
                 btnUpload.Enabled = true;
                 btnUpload.Cursor = Cursor.Current = Cursors.Default;
             }));
@@ -106,7 +112,7 @@ namespace NetsuiteUploader
             }
             else
             {
-                appendLog("Please select a task", Color.Yellow);
+                appendLog("Please select a task", NOTIFICATION_ERROR);
             }
         }
 
@@ -150,30 +156,34 @@ namespace NetsuiteUploader
                 }
                 catch (Exception ex)
                 {
-                    appendLog(ex.Message, Color.Red);
+                    appendLog(ex.Message, NOTIFICATION_ERROR);
                 }
             }
             else
             {
-                appendLog("Please select a task", Color.Yellow);
+                appendLog("Please select a task", NOTIFICATION_ERROR);
             }
         }
 
         private void appendLog(string log)
         {
-            appendLog(log, Color.Transparent);
+            appendLog(log, string.Empty);
         }
 
-        private void appendLog(string log, Color backColor)
+        private void appendLog(string log, string notification_type)
         {
+            picDone.Visible = picError.Visible = false;
+
             DateTime now = System.DateTime.Now;
             Invoke(new Action(() =>
             {
                 string message = now.ToShortDateString() + " " + now.ToShortTimeString() + ":" + now.Second + " " + log + "\r\n";
                 txtLog.Text = message + txtLog.Text;
 
-                pnlStatus.BackColor = backColor;
- 
+                if (NOTIFICATION_SUCCESS == notification_type)
+                    picDone.Visible = true;
+                else if (NOTIFICATION_ERROR == notification_type)
+                    picError.Visible = true;
             }));
 
             System.Threading.Tasks.Task.Factory.StartNew(() =>
@@ -185,16 +195,21 @@ namespace NetsuiteUploader
 
         private object ClearStatus()
         {
-            pnlStatus.BackColor = Color.Transparent;
+            picDone.Visible = picError.Visible = false;
             return null;
         }
 
         private void loadAccounts()
         {
+            Stream myStream = NetsuiteUploaderAssembly.GetManifestResourceStream("NetsuiteUploader.Resources.account.png");
+            Bitmap image = new Bitmap(myStream);
+
             string accounts = System.Configuration.ConfigurationManager.AppSettings["account"].ToString();
             string[] arrAccount = accounts.Split(',');
             for (int i = 0; i < arrAccount.Length; i++)
-                ddbAccount.DropDownItems.Add(arrAccount[i]);
+            {
+                ddbAccount.DropDownItems.Add(arrAccount[i], image);
+            }
         }
 
         private void executeLogin(string account)
@@ -217,7 +232,7 @@ namespace NetsuiteUploader
                 tmrTimeout.Stop();
 
                 lblToolStripStatus.Text = "Login failed!";
-                appendLog(lblToolStripStatus.Text, Color.Red);
+                appendLog(lblToolStripStatus.Text, NOTIFICATION_ERROR);
             }
         }
 
@@ -247,7 +262,24 @@ namespace NetsuiteUploader
             listFileSystemWatcher = null;
         }
 
-        
+        private void loadResources()
+        {
+            Stream myStream = NetsuiteUploaderAssembly.GetManifestResourceStream("NetsuiteUploader.Resources.done.png");
+            Bitmap image = new Bitmap(myStream);
+            picDone.Image = image;
+
+            myStream = NetsuiteUploaderAssembly.GetManifestResourceStream("NetsuiteUploader.Resources.error.png");
+            image = new Bitmap(myStream);
+            picError.Image = image;
+
+            myStream = NetsuiteUploaderAssembly.GetManifestResourceStream("NetsuiteUploader.Resources.folder.png");
+            image = new Bitmap(myStream);
+            mniTasksOpenFolder.Image = image;
+
+            myStream = NetsuiteUploaderAssembly.GetManifestResourceStream("NetsuiteUploader.Resources.file.png");
+            image = new Bitmap(myStream);
+            mniTasksOpenFile.Image = image;
+        }
         
     }
 }
