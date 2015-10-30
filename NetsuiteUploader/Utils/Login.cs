@@ -9,6 +9,9 @@ using System.Configuration;
 
 namespace NetsuiteUploader.Utils
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Login
     {
         public string Account = null;
@@ -20,6 +23,12 @@ namespace NetsuiteUploader.Utils
             return login(netSuiteService, null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="netSuiteService"></param>
+        /// <param name="account"></param>
+        /// <returns></returns>
         public SessionResponse login(NetSuiteService netSuiteService, string account)
         {
             try
@@ -49,6 +58,11 @@ namespace NetsuiteUploader.Utils
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="netSuiteService"></param>
+        /// <param name="sessionResponse"></param>
         public void logout(NetSuiteService netSuiteService, SessionResponse sessionResponse)
         {
             if (sessionResponse != null && sessionResponse.status.isSuccess)

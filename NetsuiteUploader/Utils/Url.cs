@@ -13,6 +13,13 @@ namespace NetsuiteUploader.Utils
 {
     class Url
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nsAccount"></param>
+        /// <param name="nsEmail"></param>
+        /// <param name="nsPassword"></param>
+        /// <returns></returns>
         public Triplet getDataCenterUrls(String nsAccount, String nsEmail, String nsPassword)
         {
             try

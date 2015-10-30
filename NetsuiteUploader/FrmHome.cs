@@ -22,17 +22,25 @@ namespace NetsuiteUploader
     public partial class frmUploader : Form
     {
         private Assembly NetsuiteUploaderAssembly = Assembly.GetExecutingAssembly();
+
         private NetSuiteService netSuiteService = new NetSuiteService();
+        
         private SessionResponse sessionResponse;
+        
         private string currentTask;
+        
         private List<FileSystemWatcher> listFileSystemWatcher = null;
+        
         private const string NOTIFICATION_SUCCESS = "1";
+        
         private const string NOTIFICATION_ERROR = "2";
 
         public frmUploader()
         {
             InitializeComponent();
         }
+
+        #region CONTROLS EVENTS
 
         private void frmUploader_Load(object sender, EventArgs e)
         {
@@ -80,8 +88,7 @@ namespace NetsuiteUploader
         {
             System.Threading.Thread.Sleep(2000);
 
-            FileUploader fileUploader = new FileUploader();
-            fileUploader.UploadFiles(netSuiteService, currentTask);
+            FileUploader.UploadFiles(netSuiteService, currentTask);
         }
 
         private void ddbAccount_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -116,6 +123,13 @@ namespace NetsuiteUploader
             }
         }
 
+        #endregion
+
+        #region PRIVATE FUNCTIONS
+
+        /// <summary>
+        /// load the list of tasks present in the tasks folder
+        /// </summary>
         private void loadTasks()
         {
             lstTasks.Items.Clear();
@@ -128,6 +142,9 @@ namespace NetsuiteUploader
             }
         }
 
+        /// <summary>
+        /// call the upload service and config the file watcher
+        /// </summary>
         private void upload()
         {
             if (null != lstTasks.SelectedItem)
@@ -139,8 +156,7 @@ namespace NetsuiteUploader
 
                     currentTask = lstTasks.SelectedItem.ToString();
 
-                    FileUploader fileUploader = new FileUploader();
-                    TaskFile[] taskFiles = fileUploader.UploadFiles(netSuiteService, currentTask);
+                    TaskFile[] taskFiles = FileUploader.UploadFiles(netSuiteService, currentTask);
 
                     List<string> filePaths = taskFiles.Select(f => System.IO.Path.GetDirectoryName(f.Path)).Distinct().ToList();
                     if (chkWatchChanges.Checked)
@@ -165,11 +181,20 @@ namespace NetsuiteUploader
             }
         }
 
+        /// <summary>
+        /// add new log line
+        /// </summary>
+        /// <param name="log">log message</param>
         private void appendLog(string log)
         {
             appendLog(log, string.Empty);
         }
 
+        /// <summary>
+        /// add new log line with a type for show an execution status image
+        /// </summary>
+        /// <param name="log">log message</param>
+        /// <param name="notification_type">type of message</param>
         private void appendLog(string log, string notification_type)
         {
             picDone.Visible = picError.Visible = false;
@@ -193,12 +218,19 @@ namespace NetsuiteUploader
             });
         }
 
+        /// <summary>
+        /// clear the execution status image
+        /// </summary>
+        /// <returns></returns>
         private object ClearStatus()
         {
             picDone.Visible = picError.Visible = false;
             return null;
         }
 
+        /// <summary>
+        /// load the selectable accounts
+        /// </summary>
         private void loadAccounts()
         {
             Stream myStream = NetsuiteUploaderAssembly.GetManifestResourceStream("NetsuiteUploader.Resources.account.png");
@@ -212,6 +244,10 @@ namespace NetsuiteUploader
             }
         }
 
+        /// <summary>
+        /// call the login service
+        /// </summary>
+        /// <param name="account">netsuite account</param>
         private void executeLogin(string account)
         {
             Login login = new Login();
@@ -236,6 +272,10 @@ namespace NetsuiteUploader
             }
         }
 
+        /// <summary>
+        /// start watching a specific path
+        /// </summary>
+        /// <param name="path"></param>
         private void watch(string path)
         {
             FileSystemWatcher watcher = new FileSystemWatcher();
@@ -248,6 +288,9 @@ namespace NetsuiteUploader
             listFileSystemWatcher.Add(watcher);
         }
 
+        /// <summary>
+        /// stop watching all the active watchers
+        /// </summary>
         private void unWatch()
         {
             if (listFileSystemWatcher != null)
@@ -262,6 +305,9 @@ namespace NetsuiteUploader
             listFileSystemWatcher = null;
         }
 
+        /// <summary>
+        /// load the image resources embedded in the assembly
+        /// </summary>
         private void loadResources()
         {
             Stream myStream = NetsuiteUploaderAssembly.GetManifestResourceStream("NetsuiteUploader.Resources.done.png");
@@ -280,6 +326,7 @@ namespace NetsuiteUploader
             image = new Bitmap(myStream);
             mniTasksOpenFile.Image = image;
         }
-        
+
+        #endregion
     }
 }

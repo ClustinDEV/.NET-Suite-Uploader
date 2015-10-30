@@ -10,9 +10,18 @@ using System.Threading.Tasks;
 
 namespace NetsuiteUploader.Utils
 {
-    public class FileUploader
+    /// <summary>
+    /// manage the upload of files on netsuite
+    /// </summary>
+    public static class FileUploader
     {
-        public TaskFile[] UploadFiles(NetSuiteService netSuiteService, string taskName)
+        /// <summary>
+        /// exceute the upload of files set in the task
+        /// </summary>
+        /// <param name="netSuiteService">netsuite webservice instance</param>
+        /// <param name="taskName">task executed</param>
+        /// <returns>array of task files uploaded</returns>
+        public static TaskFile[] UploadFiles(NetSuiteService netSuiteService, string taskName)
         {
             /*  ///SINGLE FILE SAMPLE UPLOAD
             RecordRef recRef = new RecordRef();
@@ -56,7 +65,12 @@ namespace NetsuiteUploader.Utils
             return taskFiles.ToArray();
         }
 
-        private Record createRecord(TaskFile taskFile)
+        /// <summary>
+        /// create the nesuite record of file for the upload
+        /// </summary>
+        /// <param name="taskFile">task file</param>
+        /// <returns>netsuite file record</returns>
+        private static Record createRecord(TaskFile taskFile)
         {
             string path = taskFile.Path;
             if (!System.IO.File.Exists(path))
@@ -74,11 +88,4 @@ namespace NetsuiteUploader.Utils
         }
 
     }
-
-    public class TaskFile
-    {
-        public string Path;
-        public string Folderid;
-    }
-
 }
