@@ -10,7 +10,7 @@ using System.Configuration;
 namespace NetsuiteUploader.Utils
 {
     /// <summary>
-    /// 
+    /// login management
     /// </summary>
     public class Login
     {
@@ -26,9 +26,9 @@ namespace NetsuiteUploader.Utils
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="netSuiteService"></param>
-        /// <param name="account"></param>
-        /// <returns></returns>
+        /// <param name="netSuiteService">netsuite webservice instance</param>
+        /// <param name="account">account</param>
+        /// <returns>session service response</returns>
         public SessionResponse login(NetSuiteService netSuiteService, string account)
         {
             try
@@ -59,10 +59,10 @@ namespace NetsuiteUploader.Utils
         }
 
         /// <summary>
-        /// 
+        /// logout
         /// </summary>
-        /// <param name="netSuiteService"></param>
-        /// <param name="sessionResponse"></param>
+        /// <param name="netSuiteService">netsuite webservice instance</param>
+        /// <param name="sessionResponse">session service response</param>
         public void logout(NetSuiteService netSuiteService, SessionResponse sessionResponse)
         {
             if (sessionResponse != null && sessionResponse.status.isSuccess)

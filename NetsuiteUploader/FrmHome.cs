@@ -54,7 +54,27 @@ namespace NetsuiteUploader
         {
             Invoke(new Action(() =>
             {
-                appendLog("Upload done!", NOTIFICATION_SUCCESS);
+                bool success = true;
+
+                if(!e.Result.status.isSuccess)
+                {
+                    success = false;
+                    appendLog(string.Format("Upload error: {0}", e.Error), NOTIFICATION_ERROR);
+                }
+
+                foreach(WriteResponse wr in e.Result.writeResponse)
+                {
+                    if(!wr.status.isSuccess)
+                    {
+                        success = false;
+                        appendLog(string.Format("Upload error: {0}", wr.status.statusDetail[0].message), NOTIFICATION_ERROR);
+                    }
+                }
+
+                if(success)
+                    appendLog("Upload done!", NOTIFICATION_SUCCESS);
+
+
                 btnUpload.Enabled = true;
                 btnUpload.Cursor = Cursor.Current = Cursors.Default;
             }));
@@ -86,9 +106,16 @@ namespace NetsuiteUploader
 
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
-            System.Threading.Thread.Sleep(2000);
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
 
-            FileUploader.UploadFiles(netSuiteService, currentTask);
+                FileUploader.UploadFiles(netSuiteService, currentTask);
+            }
+            catch (Exception ex)
+            {
+                appendLog(ex.Message, NOTIFICATION_ERROR);
+            }
         }
 
         private void ddbAccount_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -112,9 +139,9 @@ namespace NetsuiteUploader
 
         private void mniTasksOpenFile_Click(object sender, EventArgs e)
         {
-            if (null != lstTasks.SelectedItem)
+            if (null != cboTasks.SelectedItem)
             {
-                string taskFile = ConfigurationManager.AppSettings["taskfolder"].ToString().TrimEnd('\\') + @"\" + lstTasks.SelectedItem;
+                string taskFile = ConfigurationManager.AppSettings["taskfolder"].ToString().TrimEnd('\\') + @"\" + cboTasks.SelectedItem.ToString();
                 Process.Start(taskFile);
             }
             else
@@ -132,13 +159,13 @@ namespace NetsuiteUploader
         /// </summary>
         private void loadTasks()
         {
-            lstTasks.Items.Clear();
+            cboTasks.Items.Clear();
             string taskFolder = ConfigurationManager.AppSettings["taskfolder"].ToString().TrimEnd('\\');
             string[] filePaths = Directory.GetFiles(taskFolder);
             for (int i = 0; i < filePaths.Length; i++)
             {
                 string fileName = System.IO.Path.GetFileName(filePaths[i]);
-                lstTasks.Items.Add(fileName);
+                cboTasks.Items.Add(fileName);
             }
         }
 
@@ -147,14 +174,14 @@ namespace NetsuiteUploader
         /// </summary>
         private void upload()
         {
-            if (null != lstTasks.SelectedItem)
+            if (null != cboTasks.SelectedItem)
             {
                 try
                 {
                     btnUpload.Enabled = false;
                     btnUpload.Cursor = Cursor.Current = Cursors.WaitCursor;
 
-                    currentTask = lstTasks.SelectedItem.ToString();
+                    currentTask = cboTasks.SelectedItem.ToString();
 
                     TaskFile[] taskFiles = FileUploader.UploadFiles(netSuiteService, currentTask);
 
@@ -237,6 +264,13 @@ namespace NetsuiteUploader
             Bitmap image = new Bitmap(myStream);
 
             string accounts = System.Configuration.ConfigurationManager.AppSettings["account"].ToString();
+
+            if(string.IsNullOrWhiteSpace(accounts))
+            { 
+                MessageBox.Show("No accounts set in the application config!", "NOTIFICATION", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+                return;
+            }
+
             string[] arrAccount = accounts.Split(',');
             for (int i = 0; i < arrAccount.Length; i++)
             {
@@ -251,6 +285,24 @@ namespace NetsuiteUploader
         private void executeLogin(string account)
         {
             Login login = new Login();
+
+            ///password not mandatory in configuration
+            if (string.IsNullOrEmpty(login.Password))
+            {
+                FrmDialog passwordDialog = new FrmDialog();
+                passwordDialog.Text = login.Email;
+                if (passwordDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    login.Password = passwordDialog.txtPassword.Text;
+                }
+                else
+                {
+                    login.Password = string.Empty;
+                }
+                passwordDialog.Dispose();
+            }
+
+
             sessionResponse = (account != null) ? login.login(netSuiteService, account) : login.login(netSuiteService);
             if (sessionResponse != null && sessionResponse.status.isSuccess)
             {

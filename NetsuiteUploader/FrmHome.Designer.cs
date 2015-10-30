@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUploader));
             this.tmrTimeout = new System.Windows.Forms.Timer(this.components);
-            this.lstTasks = new System.Windows.Forms.ListBox();
             this.btnUpload = new System.Windows.Forms.Button();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.chkWatchChanges = new System.Windows.Forms.CheckBox();
@@ -45,6 +44,7 @@
             this.mniTasksOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.picDone = new System.Windows.Forms.PictureBox();
             this.picError = new System.Windows.Forms.PictureBox();
+            this.cboTasks = new System.Windows.Forms.ComboBox();
             this.statusStripUploader.SuspendLayout();
             this.tlsUploader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDone)).BeginInit();
@@ -57,22 +57,13 @@
             this.tmrTimeout.Interval = 600000;
             this.tmrTimeout.Tick += new System.EventHandler(this.tmrTimeout_Tick);
             // 
-            // lstTasks
-            // 
-            this.lstTasks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lstTasks.FormattingEnabled = true;
-            this.lstTasks.Location = new System.Drawing.Point(16, 35);
-            this.lstTasks.Name = "lstTasks";
-            this.lstTasks.Size = new System.Drawing.Size(680, 132);
-            this.lstTasks.TabIndex = 1;
-            // 
             // btnUpload
             // 
             this.btnUpload.BackColor = System.Drawing.SystemColors.Control;
             this.btnUpload.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUpload.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnUpload.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpload.Location = new System.Drawing.Point(16, 175);
+            this.btnUpload.Location = new System.Drawing.Point(16, 77);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(255, 55);
             this.btnUpload.TabIndex = 2;
@@ -82,17 +73,19 @@
             // 
             // txtLog
             // 
-            this.txtLog.Location = new System.Drawing.Point(16, 236);
+            this.txtLog.BackColor = System.Drawing.Color.White;
+            this.txtLog.Location = new System.Drawing.Point(16, 148);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
+            this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(680, 141);
+            this.txtLog.Size = new System.Drawing.Size(506, 141);
             this.txtLog.TabIndex = 3;
             // 
             // chkWatchChanges
             // 
             this.chkWatchChanges.AutoSize = true;
-            this.chkWatchChanges.Location = new System.Drawing.Point(547, 176);
+            this.chkWatchChanges.Location = new System.Drawing.Point(373, 100);
             this.chkWatchChanges.Name = "chkWatchChanges";
             this.chkWatchChanges.Size = new System.Drawing.Size(149, 17);
             this.chkWatchChanges.TabIndex = 4;
@@ -104,9 +97,9 @@
             // 
             this.statusStripUploader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblToolStripStatus});
-            this.statusStripUploader.Location = new System.Drawing.Point(0, 392);
+            this.statusStripUploader.Location = new System.Drawing.Point(0, 308);
             this.statusStripUploader.Name = "statusStripUploader";
-            this.statusStripUploader.Size = new System.Drawing.Size(712, 22);
+            this.statusStripUploader.Size = new System.Drawing.Size(540, 22);
             this.statusStripUploader.SizingGrip = false;
             this.statusStripUploader.TabIndex = 5;
             // 
@@ -126,7 +119,7 @@
             this.tlsUploader.Name = "tlsUploader";
             this.tlsUploader.Padding = new System.Windows.Forms.Padding(0);
             this.tlsUploader.ShowItemToolTips = false;
-            this.tlsUploader.Size = new System.Drawing.Size(712, 25);
+            this.tlsUploader.Size = new System.Drawing.Size(540, 25);
             this.tlsUploader.Stretch = true;
             this.tlsUploader.TabIndex = 6;
             // 
@@ -174,7 +167,7 @@
             // 
             // picDone
             // 
-            this.picDone.Location = new System.Drawing.Point(274, 175);
+            this.picDone.Location = new System.Drawing.Point(274, 78);
             this.picDone.Margin = new System.Windows.Forms.Padding(0);
             this.picDone.Name = "picDone";
             this.picDone.Size = new System.Drawing.Size(54, 54);
@@ -184,7 +177,7 @@
             // 
             // picError
             // 
-            this.picError.Location = new System.Drawing.Point(274, 176);
+            this.picError.Location = new System.Drawing.Point(274, 78);
             this.picError.Margin = new System.Windows.Forms.Padding(0);
             this.picError.Name = "picError";
             this.picError.Size = new System.Drawing.Size(54, 54);
@@ -192,13 +185,23 @@
             this.picError.TabStop = false;
             this.picError.Visible = false;
             // 
+            // cboTasks
+            // 
+            this.cboTasks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTasks.FormattingEnabled = true;
+            this.cboTasks.Location = new System.Drawing.Point(16, 40);
+            this.cboTasks.Name = "cboTasks";
+            this.cboTasks.Size = new System.Drawing.Size(506, 21);
+            this.cboTasks.TabIndex = 10;
+            // 
             // frmUploader
             // 
             this.AcceptButton = this.btnUpload;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(712, 414);
+            this.ClientSize = new System.Drawing.Size(540, 330);
+            this.Controls.Add(this.cboTasks);
             this.Controls.Add(this.picError);
             this.Controls.Add(this.picDone);
             this.Controls.Add(this.tlsUploader);
@@ -206,7 +209,6 @@
             this.Controls.Add(this.chkWatchChanges);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.btnUpload);
-            this.Controls.Add(this.lstTasks);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -231,7 +233,6 @@
         #endregion
 
         private System.Windows.Forms.Timer tmrTimeout;
-        private System.Windows.Forms.ListBox lstTasks;
         private System.Windows.Forms.Button btnUpload;
         private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.CheckBox chkWatchChanges;
@@ -245,6 +246,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.PictureBox picDone;
         private System.Windows.Forms.PictureBox picError;
+        private System.Windows.Forms.ComboBox cboTasks;
     }
 }
 
