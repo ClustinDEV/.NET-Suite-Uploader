@@ -74,6 +74,7 @@
             // txtLog
             // 
             this.txtLog.BackColor = System.Drawing.Color.White;
+            this.txtLog.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLog.Location = new System.Drawing.Point(16, 148);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
@@ -85,11 +86,12 @@
             // chkWatchChanges
             // 
             this.chkWatchChanges.AutoSize = true;
-            this.chkWatchChanges.Location = new System.Drawing.Point(373, 100);
+            this.chkWatchChanges.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkWatchChanges.Location = new System.Drawing.Point(369, 95);
             this.chkWatchChanges.Name = "chkWatchChanges";
-            this.chkWatchChanges.Size = new System.Drawing.Size(149, 17);
+            this.chkWatchChanges.Size = new System.Drawing.Size(153, 24);
             this.chkWatchChanges.TabIndex = 4;
-            this.chkWatchChanges.Text = "Start watch file changes";
+            this.chkWatchChanges.Text = "Watch file changes";
             this.chkWatchChanges.UseVisualStyleBackColor = true;
             this.chkWatchChanges.CheckedChanged += new System.EventHandler(this.chkWatchChanges_CheckedChanged);
             // 
@@ -188,10 +190,11 @@
             // cboTasks
             // 
             this.cboTasks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTasks.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboTasks.FormattingEnabled = true;
             this.cboTasks.Location = new System.Drawing.Point(16, 40);
             this.cboTasks.Name = "cboTasks";
-            this.cboTasks.Size = new System.Drawing.Size(506, 21);
+            this.cboTasks.Size = new System.Drawing.Size(506, 28);
             this.cboTasks.TabIndex = 10;
             // 
             // frmUploader
