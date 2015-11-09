@@ -20,5 +20,11 @@ namespace NetsuiteUploader.Utils
         /// netsuite cabinet folder id where the file will be upload
         /// </summary>
         public string Folderid;
+
+        /// <summary>
+        /// file available without login
+        /// </summary>
+        public bool IsOnline = false;
+
     }
 }

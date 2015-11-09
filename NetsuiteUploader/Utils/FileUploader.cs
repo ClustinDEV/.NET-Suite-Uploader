@@ -80,6 +80,7 @@ namespace NetsuiteUploader.Utils
             NetsuiteUploader.com.netsuite.na1.webservices.File record = new NetsuiteUploader.com.netsuite.na1.webservices.File();
             record.name = System.IO.Path.GetFileName(path);
             record.content = System.IO.File.ReadAllBytes(path);
+            record.isOnlineSpecified = record.isOnline = (taskFile.IsOnline != null) ? taskFile.IsOnline : false;
             RecordRef recRef = new RecordRef();
             recRef.internalId = folderInternalId;
             record.folder = recRef;
