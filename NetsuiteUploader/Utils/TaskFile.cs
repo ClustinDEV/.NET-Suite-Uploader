@@ -26,5 +26,24 @@ namespace NetsuiteUploader.Utils
         /// </summary>
         public bool IsOnline = false;
 
+        /// <summary>
+        /// file is addable to bundle
+        /// </summary>
+        public bool Bundleable = false;
+
+        /// <summary>
+        /// file is hide in bundle
+        /// </summary>
+        public bool HideInBundle = false;
+
+        /// <summary>
+        /// file is inactive
+        /// </summary>
+        public bool IsInactive = false;
+
+        /// <summary>
+        /// file is private
+        /// </summary>
+        public bool IsPrivate = false;
     }
 }

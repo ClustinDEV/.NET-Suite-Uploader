@@ -96,7 +96,21 @@ namespace NetsuiteUploader
 
         private void tmrTimeout_Tick(object sender, EventArgs e)
         {
-            GetServerTimeResult gstr = netSuiteService.getServerTime();
+            try
+            {
+                if(sessionResponse != null  && sessionResponse.status != null && sessionResponse.status.isSuccess)
+                {
+                    GetServerTimeResult gstr = netSuiteService.getServerTime();
+                }
+                else 
+                { 
+                    appendLog("Connection closed, please restart the application", NOTIFICATION_ERROR);
+                }
+            }
+            catch (Exception ex)
+            {
+                appendLog(ex.Message, NOTIFICATION_ERROR);
+            }
         }
 
         private void btnUpload_Click(object sender, EventArgs e)
@@ -178,23 +192,30 @@ namespace NetsuiteUploader
             {
                 try
                 {
-                    btnUpload.Enabled = false;
-                    btnUpload.Cursor = Cursor.Current = Cursors.WaitCursor;
-
-                    currentTask = cboTasks.SelectedItem.ToString();
-
-                    TaskFile[] taskFiles = FileUploader.UploadFiles(netSuiteService, currentTask);
-
-                    List<string> filePaths = taskFiles.Select(f => System.IO.Path.GetDirectoryName(f.Path)).Distinct().ToList();
-                    if (chkWatchChanges.Checked)
+                    if (sessionResponse != null && sessionResponse.status != null && sessionResponse.status.isSuccess)
                     {
-                        listFileSystemWatcher = new List<FileSystemWatcher>();
-                        foreach (string filePath in filePaths)
-                            watch(filePath);
+                        btnUpload.Enabled = false;
+                        btnUpload.Cursor = Cursor.Current = Cursors.WaitCursor;
+
+                        currentTask = cboTasks.SelectedItem.ToString();
+
+                        TaskFile[] taskFiles = FileUploader.UploadFiles(netSuiteService, currentTask);
+
+                        List<string> filePaths = taskFiles.Select(f => System.IO.Path.GetDirectoryName(f.Path)).Distinct().ToList();
+                        if (chkWatchChanges.Checked)
+                        {
+                            listFileSystemWatcher = new List<FileSystemWatcher>();
+                            foreach (string filePath in filePaths)
+                                watch(filePath);
+                        }
+                        else
+                        {
+                            unWatch();
+                        }
                     }
                     else
                     {
-                        unWatch();
+                        appendLog("Connection closed, please restart the application", NOTIFICATION_ERROR);
                     }
                 }
                 catch (Exception ex)

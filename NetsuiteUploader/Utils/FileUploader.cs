@@ -81,6 +81,11 @@ namespace NetsuiteUploader.Utils
             record.name = System.IO.Path.GetFileName(path);
             record.content = System.IO.File.ReadAllBytes(path);
             record.isOnlineSpecified = record.isOnline = (taskFile.IsOnline != null) ? taskFile.IsOnline : false;
+            record.bundleableSpecified = record.bundleable = (taskFile.Bundleable != null) ? taskFile.Bundleable : false;
+            record.hideInBundleSpecified = record.hideInBundle = (taskFile.HideInBundle != null) ? taskFile.HideInBundle : false;
+            record.isInactiveSpecified = record.isInactive = (taskFile.IsInactive != null) ? taskFile.IsInactive : false;
+            record.isPrivateSpecified = record.isPrivate = (taskFile.IsPrivate != null) ? taskFile.IsPrivate : false;
+
             RecordRef recRef = new RecordRef();
             recRef.internalId = folderInternalId;
             record.folder = recRef;
