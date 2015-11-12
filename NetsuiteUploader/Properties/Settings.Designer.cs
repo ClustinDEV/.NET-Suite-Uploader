@@ -26,16 +26,6 @@ namespace NetsuiteUploader.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://webservices.netsuite.com/services/NetSuitePort_2015_1")]
-        public string NetsuiteUploader_com_netsuite_webservices_NetSuiteService {
-            get {
-                return ((string)(this["NetsuiteUploader_com_netsuite_webservices_NetSuiteService"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("https://webservices.na1.netsuite.com/services/NetSuitePort_2014_2")]
         public string NetsuiteUploader_com_netsuite_na1_webservices_NetSuiteService {
             get {

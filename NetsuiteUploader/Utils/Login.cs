@@ -18,9 +18,14 @@ namespace NetsuiteUploader.Utils
         public string Email = ConfigurationManager.AppSettings["email"];
         public string Password = ConfigurationManager.AppSettings["password"];
 
-        public SessionResponse login(NetSuiteService netSuiteService)
+        public Login()
         {
-            return login(netSuiteService, null);
+
+        }
+
+        public Login(string account)
+        {
+            this.Account = account;
         }
 
         /// <summary>
@@ -29,14 +34,10 @@ namespace NetsuiteUploader.Utils
         /// <param name="netSuiteService">netsuite webservice instance</param>
         /// <param name="account">account</param>
         /// <returns>session service response</returns>
-        public SessionResponse login(NetSuiteService netSuiteService, string account)
+        public SessionResponse login(NetSuiteService netSuiteService)
         {
             try
             {
-                this.Account = account;
-                if (this.Account == null)
-                    this.Account = ConfigurationManager.AppSettings["account"].Split(',')[0];
-
                 Passport passport = new Passport();
                 passport.account = this.Account;
                 passport.email = this.Email;

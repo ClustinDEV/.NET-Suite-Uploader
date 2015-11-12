@@ -173,13 +173,20 @@ namespace NetsuiteUploader
         /// </summary>
         private void loadTasks()
         {
-            cboTasks.Items.Clear();
-            string taskFolder = ConfigurationManager.AppSettings["taskfolder"].ToString().TrimEnd('\\');
-            string[] filePaths = Directory.GetFiles(taskFolder);
-            for (int i = 0; i < filePaths.Length; i++)
+            try
+            { 
+                cboTasks.Items.Clear();
+                string taskFolder = ConfigurationManager.AppSettings["taskfolder"].ToString().TrimEnd('\\');
+                string[] filePaths = Directory.GetFiles(taskFolder);
+                for (int i = 0; i < filePaths.Length; i++)
+                {
+                    string fileName = System.IO.Path.GetFileName(filePaths[i]);
+                    cboTasks.Items.Add(fileName);
+                }
+            }
+            catch (Exception ex)
             {
-                string fileName = System.IO.Path.GetFileName(filePaths[i]);
-                cboTasks.Items.Add(fileName);
+                appendLog(ex.Message, NOTIFICATION_ERROR);
             }
         }
 
@@ -305,7 +312,19 @@ namespace NetsuiteUploader
         /// <param name="account">netsuite account</param>
         private void executeLogin(string account)
         {
-            Login login = new Login();
+            string _account = string.IsNullOrEmpty(account) ? ConfigurationManager.AppSettings["account"].Split(',')[0] : account;
+            if (_account.Contains('|')) _account = _account.Split('|')[0];
+
+            Login login = new Login(_account);
+
+            bool isSandbox = false;
+            if(!string.IsNullOrEmpty(account))
+            {
+                DialogResult dlrSandbox = MessageBox.Show("Connect to sandbox account?", "Question", MessageBoxButtons.YesNo);
+                isSandbox = (dlrSandbox == DialogResult.Yes);
+            }
+
+            netSuiteService = new DataCenterAwareNetSuiteService(login.Account, isSandbox);
 
             ///password not mandatory in configuration
             if (string.IsNullOrEmpty(login.Password))
@@ -324,17 +343,14 @@ namespace NetsuiteUploader
             }
 
 
-            sessionResponse = (account != null) ? login.login(netSuiteService, account) : login.login(netSuiteService);
+            sessionResponse = login.login(netSuiteService);
             if (sessionResponse != null && sessionResponse.status.isSuccess)
             {
-                lblToolStripStatus.Text = "Account: " + login.Account + " - Email: " + login.Email;
+                lblToolStripStatus.Text = ((isSandbox) ? "SANDBOX " : "") + "Account: " + login.Account + " - Email: " + login.Email;
                 appendLog("Login done [" + lblToolStripStatus.Text + "]");
 
-                if(account == null)
-                {
-                    netSuiteService.addListCompleted += netSuiteService_addListCompleted;
-                    loadTasks();
-                }
+                netSuiteService.addListCompleted += netSuiteService_addListCompleted;
+                loadTasks();
             }
             else
             {
